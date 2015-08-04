@@ -1,0 +1,294 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    max-width: 750px;
+    margin: auto;
+}
+
+.head_pic_area {
+    position: relative;
+    width: 100%;
+    float: left;
+    height: 30vw;
+    overflow: hidden;
+    background: rgba(0,0,0,0.1);
+}
+
+.head_pic {
+    width: 100%;
+    border: none;
+    float: left;
+}
+
+.title {
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: table;
+    height: auto;
+    line-height: 1.5em;
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    width: 90%;
+}
+
+.person_count {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: #fff;
+}
+
+.tab_menu {
+    display: table;
+    background: #f6f1e9;
+    width: 100%;
+    max-height: 98px;
+    position: relative;
+}
+
+.tab_menu_auto_height {
+    width: 100%;
+    float: left;
+}
+
+.live_mode_btn {
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    cursor: pointer;
+}
+
+.comments_mode_btn {
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.live_area {
+    background: #f6f2e9;
+    float: left;
+    display: table;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.left_border {
+    width: 10px;
+    display: table-cell;
+}
+
+.right_border {
+    width: 10px;
+    display: table-cell;
+}
+
+.center_area {
+    width: auto;
+}
+
+.living_page, .comment_page {
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.item {
+    display: table;
+    margin: 10px 0px 0px 0px;
+    width: 100%;
+}
+
+.face_area {
+    display: table-cell;
+    width: 50px;
+    vertical-align: top;
+}
+
+.face_area_top{
+    background: url("img/topicon.png");
+    background-repeat: no-repeat;
+    background-size: 40px;
+}
+
+.face_border {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.face_img {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.info_area{
+    padding: 10px;
+    background: #fff;
+    border-radius: 10px;
+    position: relative;
+}
+.info_area:after {
+    content: " ";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-right: solid 15px #fff;
+    border-bottom: solid 10px transparent;
+    border-top: solid 10px transparent;
+    top: 10px;
+    left: -8px;
+}
+.info_area_top:after{
+    display: none;
+}
+
+.info_header {
+    width: 100%;
+    clear: left;
+    position: relative;
+    display: table;
+    vertical-align: middle;
+    line-height: 25px;
+
+}
+
+.info_header_top {
+    background-color: #fffeb0;
+    border: solid 10px #fffeb0;
+    /*border-bottom: solid 2px #d9d896;*/
+    margin: -10px 0 0 -10px;
+
+}
+
+.info_header_top:after {
+    background-color: #d9d896;
+    border-left: solid 10px #d9d896;
+    border-right: solid 10px #d9d896;
+    margin: -10px 0 0 -10px;
+    display: block;
+    content: "";
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    bottom: -10px;
+}
+
+.user_name {
+    float: left;
+}
+
+.role {
+    color: #f00;
+    margin: 0 0 0 10px;
+    float: left;
+}
+
+.post_time {
+    float: left;
+    clear: both;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.like {
+    position: absolute;
+    width: 100%;
+    display: table;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    margin: auto;
+    text-align: right;
+}
+
+.info_body {
+    margin: 10px 0 0 0;
+
+    background-color: #fff;
+}
+
+p {
+    width: 100%;
+    line-height: 1.5em;
+    margin: 10px 0 0 0;
+}
+
+.info_body img {
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+}
+
+.from_info {
+    background: #fff5e9;
+    width: auto;
+    padding: 10px;
+    margin: 10px 0 0 0;
+    position: relative;
+}
+.from_info:after {
+    content: " ";
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    top: -10px;
+    left: 40px;
+    border-bottom: solid 10px #fff2e2;
+    border-left: solid 10px transparent;
+    border-right: solid 10px transparent;
+}
+.from_info .info_body {
+    background: none;
+}
+
+.from_info .role {
+    display: none;
+}
+
+/* comments */
+.hot_comments, .new_comments {
+    width: 100%;
+    margin: 10px 0 0 0;
+}
+img.menu_icon {
+    height: 30px;
+}
+.br {
+    width: 100%;
+    margin-bottom: -5px;
+}
+
+.br img {
+    width: 100%;
+}
+
+.yellow {
+    background: #fff2e2;
+}
+
+.blue {
+    background: #c7d7dc;
+}
+
+.top {
+
+}
+
+.hide {
+    display: none;
+}

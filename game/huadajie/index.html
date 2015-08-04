@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+<!--[if lt IE 7 ]><html class="ie6" lang="zh-cmn-Hans"><![endif]-->
+<!--[if IE 7 ]><html class="ie7" lang="zh-cmn-Hans"><![endif]-->
+<!--[if IE 8 ]><html class="ie8" lang="zh-cmn-Hans"><![endif]-->
+<!--[if IE 9 ]><html class="ie9" lang="zh-cmn-Hans"><![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=2.0,maximum-scale=1,user-scalable=no">
+    <title>花大姐</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            max-width: 640px;
+            margin: auto;
+
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+<script>
+    window.onload=function(){
+        var width=window.innerWidth;
+        var height=window.innerHeight;
+        canvas = document.getElementById('canvas');
+        canvas.width = 640;
+        canvas.height = height;
+        canvas.style.width = canvas.width + "px";
+        canvas.style.height = canvas.height + "px";
+        c = canvas.getContext('2d');
+        c.clearRect(0, 0, canvas.width, canvas.height);
+        c.fillStyle = "#ff0000";
+        c.fillRect(0, 0, canvas.width, canvas.height);
+    }
+</script>
+</html>
