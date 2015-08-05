@@ -1,32 +1,56 @@
 <!doctype html>
 <html lang="zh-cmn-Hans">
-<!--[if lt IE 7 ]><html class="ie6" lang="zh-cmn-Hans"><![endif]-->
-<!--[if IE 7 ]><html class="ie7" lang="zh-cmn-Hans"><![endif]-->
-<!--[if IE 8 ]><html class="ie8" lang="zh-cmn-Hans"><![endif]-->
-<!--[if IE 9 ]><html class="ie9" lang="zh-cmn-Hans"><![endif]-->
+<!--[if lt IE 7 ]>
+<html class="ie6" lang="zh-cmn-Hans"><![endif]-->
+<!--[if IE 7 ]>
+<html class="ie7" lang="zh-cmn-Hans"><![endif]-->
+<!--[if IE 8 ]>
+<html class="ie8" lang="zh-cmn-Hans"><![endif]-->
+<!--[if IE 9 ]>
+<html class="ie9" lang="zh-cmn-Hans"><![endif]-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=2.0,maximum-scale=1,user-scalable=no">
     <title>花大姐</title>
     <style>
-        *{
+        * {
             margin: 0;
             padding: 0;
         }
-        body{
+
+        body {
             max-width: 640px;
             margin: auto;
 
         }
+
+        canvas {
+            background: #ccc;
+        }
     </style>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+<canvas id="canvas"></canvas>
 </body>
 <script>
-    window.onload=function(){
-        var width=window.innerWidth;
-        var height=window.innerHeight;
+    var loadingRes = [
+        {name: "bug", src: "img/bug.png", loaded: false},
+        {name: "tizi", src: "img/tizi.png", loaded: false},
+    ];
+
+    var res = function () {
+
+    };
+
+    var gamelooping=false;
+
+
+    var spirits=[];
+
+    window.onload = function () {
+        console.log("初始化画布");
+        var width = window.innerWidth;
+        var height = window.innerHeight;
         canvas = document.getElementById('canvas');
         canvas.width = 640;
         canvas.height = height;
@@ -35,7 +59,66 @@
         c = canvas.getContext('2d');
         c.clearRect(0, 0, canvas.width, canvas.height);
         c.fillStyle = "#ff0000";
-        c.fillRect(0, 0, canvas.width, canvas.height);
+        //c.fillRect(0, 0, canvas.width, canvas.height);
+        console.log("初始化画布完毕");
+
+
+        var loadingResTimer = setInterval(function () {
+            console.log("判断载入资源是否完毕中");
+            var resLoadedCount = 0;
+            for (i = 0; i < loadingRes.length; i++) {
+                if (!loadingRes[i].loaded) {
+                    var img = new Image();
+                    img.index = i;
+                    img.src = loadingRes[i].src;
+                    img.name = loadingRes[i].name;
+                    console.log("正在载入:"+img.name);
+
+                    img.onload = function () {
+                        console.log("已经载入:"+this.name);
+                        res[this.name] = this;
+                        loadingRes[this.index].loaded = true;
+
+                    }
+                } else {
+                    resLoadedCount++;
+                }
+            }
+            if (resLoadedCount === loadingRes.length) {
+                clearInterval(loadingResTimer);
+                console.log("资源全部载入完毕");
+
+
+                var bug={
+                    x:10,
+                    y:canvas.height,
+                    w:60,
+                    h:60,
+                    img:res.bug
+                }
+
+                spirits.push(bug);
+                gamelooping=true;
+            }
+
+        }, 1000/16);
+
+
+        var gameLooperTimer=setInterval(function(){
+            if(gamelooping){
+                c.clearRect(0, 0, canvas.width, canvas.height);
+
+                for(i=0;i<spirits.length;i++){
+                    spirit=spirits[i];
+
+                    spirit.y-=1;
+                    c.drawImage(spirit.img,spirit.x,spirit.y,spirit.w,spirit.h);
+                }
+
+                //console.log(res.bug);
+            }
+        },1000/128);
+
     }
 </script>
 </html>
