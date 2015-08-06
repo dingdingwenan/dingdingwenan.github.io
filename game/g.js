@@ -1,22 +1,32 @@
 /*
-* H5 canvas 游戏框架
-* www.dingdingwenan.com
-* 新浪微博 @丁丁文案
-* */
-var G={
-    res:[],
-    timer:0,
-    fps:16,
-    spirits:[],
-    loadingRes:[],//config
-    gameStatus :"loadingRes",//loadingRes,resLoaded,ready,looping,stop,over.
-    config:function(conf){
-        G.loadingRes=conf.loadingRes;
+ * H5 canvas 注入式游戏框架
+ * www.dingdingwenan.com
+ * 新浪微博 @丁丁文案
+ * */
+var G = {
+    res: [],
+    timer: 0,
+    fps: 16,
+    spirits: [],
+    debug: true,//config
+    loadingRes: [],//config
+    looping: function (spirit) {
+        spirit.y -= Math.floor(Math.random() * 5);
+        if (spirit.y < -100) {
+            G.spirits.splice(i, 1);
+        }
+        c.drawImage(spirit.img, spirit.x, spirit.y, spirit.w, spirit.h);
+    },//config
+    gameStatus: "loadingRes",//loadingRes,resLoaded,ready,looping,stop,over.
+    config: function (conf) {
+         conf.loadingRes!=undefined? G.loadingRes =conf.loadingRes:false;
+         conf.looping!=undefined? G.looping =conf.looping:false;
+         conf.debug!=undefined? G.debug =conf.debug:false;
     },
-    start:function(){
+    start: function () {
         G.gameStatus = "looping";
     },
-    zt:function(){
+    zt: function () {
         switch (G.gameStatus) {
             case "looping":
                 G.gameStatus = "stop";
@@ -26,8 +36,13 @@ var G={
                 break;
         }
     },
-    init:function(){
-        console.log("初始化画布");
+    out: function (s) {
+        if (G.debug) {
+            console.dir(s);
+        }
+    },
+    init: function () {
+        G.out("初始化画布");
         var width = window.innerWidth;
         var height = window.innerHeight;
         canvas = document.getElementById('canvas');
@@ -39,12 +54,12 @@ var G={
         c.clearRect(0, 0, canvas.width, canvas.height);
         c.fillStyle = "#ff0000";
         //c.fillRect(0, 0, canvas.width, canvas.height);
-        console.log("初始化画布完毕");
-        var gameTime=0;
+        G.out("初始化画布完毕");
+        var gameTime = 0;
         setInterval(function () {
             switch (G.gameStatus) {
                 case "loadingRes":
-                    console.log("判断载入资源是否完毕中");
+                    G.out("判断载入资源是否完毕中");
                     var resLoadedCount = 0;
                     for (i = 0; i < G.loadingRes.length; i++) {
                         if (!G.loadingRes[i].loaded) {
@@ -52,10 +67,10 @@ var G={
                             img.index = i;
                             img.src = G.loadingRes[i].src;
                             img.name = G.loadingRes[i].name;
-                            console.log("正在载入:" + img.name);
+                            G.out("正在载入:" + img.name);
 
                             img.onload = function () {
-                                console.log("已经载入:" + this.name);
+                                G.out("已经载入:" + this.name);
                                 G.res[this.name] = this;
                                 G.loadingRes[this.index].loaded = true;
 
@@ -65,7 +80,7 @@ var G={
                         }
                     }
                     if (resLoadedCount === G.loadingRes.length) {
-                        console.log("资源全部载入完毕");
+                        G.out("资源全部载入完毕");
 
                         var bug = {
                             x: 10,
@@ -84,24 +99,20 @@ var G={
                 case "ready":
                     break;
                 case "looping":
-                    G.timer += 1000/ G.fps;
-                    if(G.timer>1000){
-                        gameTime+=1;
-                        console.log(gameTime);
-                        G.timer=0;
+                    G.timer += 1000 / G.fps;
+                    if (G.timer > 1000) {
+                        gameTime += 1;
+                        G.out(gameTime);
+                        G.timer = 0;
                     }
                     c.clearRect(0, 0, canvas.width, canvas.height);
 
                     for (i = 0; i < G.spirits.length; i++) {
                         var spirit = G.spirits[i];
 
-                        spirit.y -= Math.floor(Math.random() * 5);
+                        G.looping(spirit);
 
-                        if (spirit.y < -100) {
-                            G.spirits.splice(i, 1);
-                        }
 
-                        c.drawImage(spirit.img, spirit.x, spirit.y, spirit.w, spirit.h);
                     }
                     break;
                 case "stop":
@@ -109,6 +120,6 @@ var G={
                 case "over":
                     break;
             }
-        }, 1000/ G.fps);
+        }, 1000 / G.fps);
     }
 }

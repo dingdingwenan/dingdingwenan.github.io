@@ -39,7 +39,16 @@
             loadingRes: [
                 {name: "bug", src: "img/bug.png", loaded: false},
                 {name: "tizi", src: "img/tizi.png", loaded: false},
-            ]
+            ],
+            //debug:false,
+            looping:function(spirit){
+                //spirit.y -= Math.floor(Math.random() * 5);
+                spirit.y -= 2;
+                if (spirit.y < -100) {
+                    G.spirits.splice(i, 1);
+                }
+                c.drawImage(spirit.img, spirit.x, spirit.y, spirit.w, spirit.h);
+            }
         });
         G.init();
     }
