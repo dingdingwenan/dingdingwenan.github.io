@@ -78,6 +78,7 @@ var G = {
                             }
                         } else {
                             resLoadedCount++;
+
                             //G.loadingResFn(resLoadedCount, G.loadingRes.length);//给出载入的 和 总共的
                         }
                     }
