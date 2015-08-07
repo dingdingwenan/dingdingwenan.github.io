@@ -26,16 +26,44 @@
 
         canvas {
             background: #ccc;
+
+        }
+        .loading_pan{
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.8);
+        }
+        .loading{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 80%;
+            height: 20%;
+            background: #fff;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            align-content: center;
+            align-self: center;
         }
     </style>
 </head>
 <body>
 <canvas id="canvas"></canvas>
 <div class="loading_pan">
-    正在很努力地载入中。。。
-    <div id="load_count"></div>
+    <div class="loading">
+        正在很努力地载入中。。。
+        <span id="load_count"></span>
+    </div>
+
 </div>
 </body>
+<script src="../c.js"></script>
 <script src="../g.js"></script>
 <script>
     window.onload = function () {
@@ -44,15 +72,26 @@
             loadingRes: [
                 {name: "bug", src: "img/bug.png", loaded: false},
                 {name: "tizi", src: "img/tizi.png", loaded: false},
+                {name: "tizi1", src: "img/tizi.png", loaded: false},
+                {name: "tizi2", src: "img/tizi.png", loaded: false},
+                {name: "tizi22", src: "img/tizi.png", loaded: false},
+                {name: "tizi233", src: "img/tizi.png", loaded: false},
+                {name: "tizi2444", src: "img/tizi.png", loaded: false},
+                {name: "tizi25", src: "img/tizi.png", loaded: false},
+                {name: "tizi26", src: "img/tizi.png", loaded: false},
+                {name: "tizi27", src: "img/tizi.png", loaded: false},
+                {name: "tizi28", src: "img/tizi.png", loaded: false},
+                {name: "tizi29", src: "img/tizi.png", loaded: false},
                 {name: "caodi", src: "img/caodi.jpg", loaded: false}
             ],
             //debug:false,
-            loadingResFn:function(loadedCount,AllCount){
-                if(loadedCount===AllCount){
+            loadingResFn:function(loadedCount,allCount){
 
-                }else{
+                _("#load_count").html(loadedCount+"/"+allCount);
 
-                }
+            },
+            loadingResEnd:function(){
+                _(".loading_pan").hide();
             },
             loopingBefpre:function(){
                 c.drawImage(G.res.caodi, 0, 0);

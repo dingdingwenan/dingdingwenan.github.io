@@ -8,11 +8,17 @@ var G = {
     timer: 0,
     fps: 64,
     spirits: [],
+    speed:3000,
+    timerFPS:0,
+    gameTime:0,
     debug: true,//config
     loadingRes: [],//config
     loadingResFn: function () {
 
     },//config
+    loadingResEnd:function(){
+      //config
+    },
     loopingBefpre:function (){//config
 
     },
@@ -29,6 +35,7 @@ var G = {
         conf.loopingSpirit != undefined ? G.loopingSpirit = conf.loopingSpirit : false;
         conf.loopingAfter != undefined ? G.loopingAfter = conf.loopingAfter : false;
         conf.loadingResFn != undefined ? G.loadingResFn = conf.loadingResFn : false;
+        conf.loadingResEnd != undefined ? G.loadingResEnd = conf.loadingResEnd : false;
         conf.debug != undefined ? G.debug = conf.debug : false;
         conf.debug != undefined ? G.debug = conf.debug : false;
     },
@@ -50,26 +57,12 @@ var G = {
             console.dir(s);
         }
     },
-    init: function () {
-        G.out("初始化画布");
-        var width = window.innerWidth;
-        var height = window.innerHeight;
-        canvas = document.getElementById('canvas');
-        canvas.width = width;
-        canvas.height = height;
-        canvas.style.width = canvas.width + "px";
-        canvas.style.height = canvas.height + "px";
-        c = canvas.getContext('2d');
-        c.clearRect(0, 0, canvas.width, canvas.height);
-        c.fillStyle = "#ff0000";
-        //c.fillRect(0, 0, canvas.width, canvas.height);
-        G.out("初始化画布完毕");
-        var gameTime = 0;
-        setInterval(function () {
+    resetTimer:function(){
+        G.timerFPS=setInterval(function () {
             switch (G.gameStatus) {
                 case "loadingRes":
                     G.out("判断载入资源是否完毕中");
-                    var resLoadedCount = 0;
+                    var resLoadedCount=0
                     for (i = 0; i < G.loadingRes.length; i++) {
                         if (!G.loadingRes[i].loaded) {
                             var img = new Image();
@@ -77,7 +70,6 @@ var G = {
                             img.src = G.loadingRes[i].src;
                             img.name = G.loadingRes[i].name;
                             G.out("正在载入:" + img.name);
-
                             img.onload = function () {
                                 G.out("已经载入:" + this.name);
                                 G.res[this.name] = this;
@@ -86,11 +78,12 @@ var G = {
                             }
                         } else {
                             resLoadedCount++;
+                            //G.loadingResFn(resLoadedCount, G.loadingRes.length);//给出载入的 和 总共的
                         }
                     }
                     if (resLoadedCount === G.loadingRes.length) {
                         G.out("资源全部载入完毕");
-
+                        G.loadingResEnd();
                         var bug = {
                             x: 10,
                             y: canvas.height,
@@ -99,11 +92,11 @@ var G = {
                             img: G.res.bug
                         }
                         G.spirits.push(bug);
-
                         G.gameStatus = "ready";
+                        G.speed=1000 / G.fps;
+                        G.resetTimer();
                     }
-                    G.loadingResFn(resLoadedCount, G.loadingRes.length);//给出载入的 和 总共的
-
+                    G.out(resLoadedCount);
                     break;
                 case "resLoaded":
                     break;
@@ -112,8 +105,8 @@ var G = {
                 case "looping":
                     G.timer += 1000 / G.fps;
                     if (G.timer > 1000) {
-                        gameTime += 1;
-                        G.out(gameTime);
+                        G.gameTime += 1;
+                        G.out(G.gameTime);
                         G.timer = 0;
                     }
                     c.clearRect(0, 0, canvas.width, canvas.height);
@@ -133,6 +126,23 @@ var G = {
                 case "over":
                     break;
             }
-        }, 1000 / G.fps);
+        }, G.speed);
+    },
+    init: function () {
+        G.out("初始化画布");
+        var width = window.innerWidth;
+        var height = window.innerHeight;
+        canvas = document.getElementById('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        canvas.style.width = canvas.width + "px";
+        canvas.style.height = canvas.height + "px";
+        c = canvas.getContext('2d');
+        c.clearRect(0, 0, canvas.width, canvas.height);
+        c.fillStyle = "#ff0000";
+        //c.fillRect(0, 0, canvas.width, canvas.height);
+        G.out("初始化画布完毕");
+        var gameTime = 0;
+        G.resetTimer();
     }
 }
