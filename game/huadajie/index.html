@@ -31,23 +31,51 @@
 </head>
 <body>
 <canvas id="canvas"></canvas>
+<div class="loading_pan">
+    正在很努力地载入中。。。
+    <div id="load_count"></div>
+</div>
 </body>
 <script src="../g.js"></script>
 <script>
     window.onload = function () {
+        var passedBugs=0;
         G.config({
             loadingRes: [
                 {name: "bug", src: "img/bug.png", loaded: false},
                 {name: "tizi", src: "img/tizi.png", loaded: false},
+                {name: "caodi", src: "img/caodi.jpg", loaded: false}
             ],
             //debug:false,
-            looping:function(spirit){
+            loadingResFn:function(loadedCount,AllCount){
+                if(loadedCount===AllCount){
+
+                }else{
+
+                }
+            },
+            loopingBefpre:function(){
+                c.drawImage(G.res.caodi, 0, 0);
+                c.drawImage(G.res.tizi, 10, 10);
+                c.drawImage(G.res.tizi, 100, 10);
+            },
+            loopingSpirit:function(spirit){
                 //spirit.y -= Math.floor(Math.random() * 5);
-                spirit.y -= 2;
+                spirit.y -= 1;
                 if (spirit.y < -100) {
                     G.spirits.splice(i, 1);
+                    passedBugs+=1;
                 }
                 c.drawImage(spirit.img, spirit.x, spirit.y, spirit.w, spirit.h);
+            },
+            loopingAfter:function(){
+
+                c.drawImage(G.res.bug, canvas.width-100,12.5,25,25);
+                c.font = "30px Courier New";
+                c.textAlign = 'left';
+                c.textBaseline = 'top';
+                c.fillStyle = "#ff000";
+                c.fillText(passedBugs, canvas.width-100+30,10);
             }
         });
         G.init();

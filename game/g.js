@@ -6,22 +6,31 @@
 var G = {
     res: [],
     timer: 0,
-    fps: 16,
+    fps: 64,
     spirits: [],
     debug: true,//config
     loadingRes: [],//config
-    looping: function (spirit) {
-        spirit.y -= Math.floor(Math.random() * 5);
-        if (spirit.y < -100) {
-            G.spirits.splice(i, 1);
-        }
-        c.drawImage(spirit.img, spirit.x, spirit.y, spirit.w, spirit.h);
+    loadingResFn: function () {
+
+    },//config
+    loopingBefpre:function (){//config
+
+    },
+    loopingAfter:function(){
+
+    },
+    loopingSpirit: function (spirit) {
+
     },//config
     gameStatus: "loadingRes",//loadingRes,resLoaded,ready,looping,stop,over.
     config: function (conf) {
-         conf.loadingRes!=undefined? G.loadingRes =conf.loadingRes:false;
-         conf.looping!=undefined? G.looping =conf.looping:false;
-         conf.debug!=undefined? G.debug =conf.debug:false;
+        conf.loadingRes != undefined ? G.loadingRes = conf.loadingRes : false;
+        conf.loopingBefpre != undefined ? G.loopingBefpre = conf.loopingBefpre : false;
+        conf.loopingSpirit != undefined ? G.loopingSpirit = conf.loopingSpirit : false;
+        conf.loopingAfter != undefined ? G.loopingAfter = conf.loopingAfter : false;
+        conf.loadingResFn != undefined ? G.loadingResFn = conf.loadingResFn : false;
+        conf.debug != undefined ? G.debug = conf.debug : false;
+        conf.debug != undefined ? G.debug = conf.debug : false;
     },
     start: function () {
         G.gameStatus = "looping";
@@ -46,7 +55,7 @@ var G = {
         var width = window.innerWidth;
         var height = window.innerHeight;
         canvas = document.getElementById('canvas');
-        canvas.width = 640;
+        canvas.width = width;
         canvas.height = height;
         canvas.style.width = canvas.width + "px";
         canvas.style.height = canvas.height + "px";
@@ -93,6 +102,8 @@ var G = {
 
                         G.gameStatus = "ready";
                     }
+                    G.loadingResFn(resLoadedCount, G.loadingRes.length);//给出载入的 和 总共的
+
                     break;
                 case "resLoaded":
                     break;
@@ -107,13 +118,15 @@ var G = {
                     }
                     c.clearRect(0, 0, canvas.width, canvas.height);
 
+                    G.loopingBefpre();
+
                     for (i = 0; i < G.spirits.length; i++) {
                         var spirit = G.spirits[i];
 
-                        G.looping(spirit);
-
-
+                        G.loopingSpirit(spirit);
                     }
+                    G.loopingAfter();
+
                     break;
                 case "stop":
                     break;
