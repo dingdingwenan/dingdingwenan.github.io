@@ -20,7 +20,6 @@ var G = {
         y: 100
     },
     loadingResFn: function () {
-
     },//config
     loadingResEnd: function () {
         //config
@@ -29,10 +28,8 @@ var G = {
 
     },
     loopingAfter: function () {
-
     },
     loopingSpirit: function (spirit) {
-
     },//config
     playerLooping: function () {
     },//config
@@ -49,7 +46,7 @@ var G = {
         conf.debug != undefined ? G.debug = conf.debug : false;
     },
     start: function () {
-        if(G.gameStatus === "ready"){
+        if (G.gameStatus === "ready") {
             G.gameStatus = "looping";
         }
     },
@@ -88,21 +85,12 @@ var G = {
                             }
                         } else {
                             resLoadedCount++;
-
                             //G.loadingResFn(resLoadedCount, G.loadingRes.length);//给出载入的 和 总共的
                         }
                     }
                     if (resLoadedCount === G.loadingRes.length) {
                         G.out("资源全部载入完毕");
-                        G.loadingResEnd();
-                        var bug = {
-                            x: 10,
-                            y: canvas.height,
-                            w: G.res.bug.width,
-                            h: G.res.bug.height,
-                            img: G.res.bug
-                        }
-                        G.spirits.push(bug);
+                        G.loadingResEnd();//全部资源载入后执行
                         G.gameStatus = "ready";
                         G.speed = 1000 / G.fps;
                         G.resetTimer();
@@ -121,19 +109,13 @@ var G = {
                         G.timer = 0;
                     }
                     c.clearRect(0, 0, canvas.width, canvas.height);
-
                     G.loopingBefpre();//用于渲染背景
-
                     G.playerLooping(G.player);//渲染角色（玩家控制）
-
                     for (i = 0; i < G.spirits.length; i++) {
                         var spirit = G.spirits[i];
-
                         G.loopingSpirit(spirit);//渲染精灵
                     }
-
                     G.loopingAfter();//渲染分数等
-
                     break;
                 case "stop":
                     break;

@@ -16,7 +16,6 @@ body {
     float: left;
     height: auto;
     overflow: hidden;
-    background-color: #f00;
 }
 .gei_height_for_head_pic{
     width: 100%;
@@ -29,6 +28,16 @@ body {
     right: 0;
     bottom: 0;
     width: 100%;
+}
+.head_mask{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
 }
 .title {
     position: absolute;
@@ -174,6 +183,7 @@ body {
 .info_header_top {
     z-index: 1;
     background-color: #fffeb0;
+    margin-bottom: 20px;
 }
 
 .info_header_top:before {
