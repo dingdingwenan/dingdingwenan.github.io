@@ -8,30 +8,39 @@ var G = {
     timer: 0,
     fps: 64,
     spirits: [],
-    speed:3000,
-    timerFPS:0,
-    gameTime:0,
+    speed: 3000,
+    timerFPS: 0,
+    gameTime: 0,
     debug: true,//config
     loadingRes: [],//config
+    player: {
+        x: 0,
+        y: 0,
+        w: 100,
+        y: 100
+    },
     loadingResFn: function () {
 
     },//config
-    loadingResEnd:function(){
-      //config
+    loadingResEnd: function () {
+        //config
     },
-    loopingBefpre:function (){//config
+    loopingBefpre: function () {//config
 
     },
-    loopingAfter:function(){
+    loopingAfter: function () {
 
     },
     loopingSpirit: function (spirit) {
 
     },//config
+    playerLooping: function () {
+    },//config
     gameStatus: "loadingRes",//loadingRes,resLoaded,ready,looping,stop,over.
     config: function (conf) {
         conf.loadingRes != undefined ? G.loadingRes = conf.loadingRes : false;
         conf.loopingBefpre != undefined ? G.loopingBefpre = conf.loopingBefpre : false;
+        conf.playerLooping != undefined ? G.playerLooping = conf.playerLooping : false;
         conf.loopingSpirit != undefined ? G.loopingSpirit = conf.loopingSpirit : false;
         conf.loopingAfter != undefined ? G.loopingAfter = conf.loopingAfter : false;
         conf.loadingResFn != undefined ? G.loadingResFn = conf.loadingResFn : false;
@@ -40,7 +49,9 @@ var G = {
         conf.debug != undefined ? G.debug = conf.debug : false;
     },
     start: function () {
-        G.gameStatus = "looping";
+        if(G.gameStatus === "ready"){
+            G.gameStatus = "looping";
+        }
     },
     zt: function () {
         switch (G.gameStatus) {
@@ -57,12 +68,12 @@ var G = {
             console.dir(s);
         }
     },
-    resetTimer:function(){
-        G.timerFPS=setInterval(function () {
+    resetTimer: function () {
+        G.timerFPS = setInterval(function () {
             switch (G.gameStatus) {
                 case "loadingRes":
                     G.out("判断载入资源是否完毕中");
-                    var resLoadedCount=0
+                    var resLoadedCount = 0
                     for (i = 0; i < G.loadingRes.length; i++) {
                         if (!G.loadingRes[i].loaded) {
                             var img = new Image();
@@ -74,7 +85,6 @@ var G = {
                                 G.out("已经载入:" + this.name);
                                 G.res[this.name] = this;
                                 G.loadingRes[this.index].loaded = true;
-
                             }
                         } else {
                             resLoadedCount++;
@@ -88,13 +98,13 @@ var G = {
                         var bug = {
                             x: 10,
                             y: canvas.height,
-                            w: 60,
-                            h: 60,
+                            w: G.res.bug.width,
+                            h: G.res.bug.height,
                             img: G.res.bug
                         }
                         G.spirits.push(bug);
                         G.gameStatus = "ready";
-                        G.speed=1000 / G.fps;
+                        G.speed = 1000 / G.fps;
                         G.resetTimer();
                     }
                     G.out(resLoadedCount);
@@ -112,14 +122,17 @@ var G = {
                     }
                     c.clearRect(0, 0, canvas.width, canvas.height);
 
-                    G.loopingBefpre();
+                    G.loopingBefpre();//用于渲染背景
+
+                    G.playerLooping(G.player);//渲染角色（玩家控制）
 
                     for (i = 0; i < G.spirits.length; i++) {
                         var spirit = G.spirits[i];
 
-                        G.loopingSpirit(spirit);
+                        G.loopingSpirit(spirit);//渲染精灵
                     }
-                    G.loopingAfter();
+
+                    G.loopingAfter();//渲染分数等
 
                     break;
                 case "stop":

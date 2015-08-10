@@ -67,21 +67,17 @@
 <script src="../g.js"></script>
 <script>
     window.onload = function () {
+        /* 自定义变量区 */
         var passedBugs=0;
+        /* 自定义函数区 */
+
+
+        /* 游戏框架注入 */
         G.config({
             loadingRes: [
                 {name: "bug", src: "img/bug.png", loaded: false},
                 {name: "tizi", src: "img/tizi.png", loaded: false},
-                {name: "tizi1", src: "img/tizi.png", loaded: false},
-                {name: "tizi2", src: "img/tizi.png", loaded: false},
-                {name: "tizi22", src: "img/tizi.png", loaded: false},
-                {name: "tizi233", src: "img/tizi.png", loaded: false},
-                {name: "tizi2444", src: "img/tizi.png", loaded: false},
-                {name: "tizi25", src: "img/tizi.png", loaded: false},
-                {name: "tizi26", src: "img/tizi.png", loaded: false},
-                {name: "tizi27", src: "img/tizi.png", loaded: false},
-                {name: "tizi28", src: "img/tizi.png", loaded: false},
-                {name: "tizi29", src: "img/tizi.png", loaded: false},
+                {name: "title", src: "img/title.png", loaded: false},
                 {name: "caodi", src: "img/caodi.jpg", loaded: false}
             ],
             //debug:false,
@@ -95,8 +91,11 @@
             },
             loopingBefpre:function(){
                 c.drawImage(G.res.caodi, 0, 0);
-                c.drawImage(G.res.tizi, 10, 10);
-                c.drawImage(G.res.tizi, 100, 10);
+                c.drawImage(G.res.tizi, 10, 0);
+                c.drawImage(G.res.tizi, 160, 0);
+            },
+            playerLooping:function(player){
+                G.out("player");
             },
             loopingSpirit:function(spirit){
                 //spirit.y -= Math.floor(Math.random() * 5);
@@ -108,15 +107,39 @@
                 c.drawImage(spirit.img, spirit.x, spirit.y, spirit.w, spirit.h);
             },
             loopingAfter:function(){
-
-                c.drawImage(G.res.bug, canvas.width-100,12.5,25,25);
+                c.globalAlpha=0.7;
+                c.drawImage(G.res.title,10,10,canvas.width-20,50);
+                c.globalAlpha=1;
+                c.drawImage(G.res.bug, canvas.width-100,22.5,25,25);
                 c.font = "30px Courier New";
                 c.textAlign = 'left';
                 c.textBaseline = 'top';
-                c.fillStyle = "#ff000";
-                c.fillText(passedBugs, canvas.width-100+30,10);
+                c.fillStyle = "#ffffff";
+
+                c.fillText("铁路扳道工",20,20);
+                c.fillText(passedBugs, canvas.width-100+30,20);
+
+                if(G.spirits.length<2){
+                    var bug = {
+                        x: 10,
+                        y: canvas.height,
+                        w: G.res.bug.width,
+                        h: G.res.bug.height,
+                        img: G.res.bug
+                    }
+                    G.spirits.push(bug);
+                    var bug = {
+                        x: 160,
+                        y: canvas.height,
+                        w: G.res.bug.width,
+                        h: G.res.bug.height,
+                        img: G.res.bug
+                    }
+                    G.spirits.push(bug);
+                }
             }
         });
+        /* 初始化游戏 */
         G.init();
     }
 </script>
