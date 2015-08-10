@@ -29,13 +29,23 @@
 
         }
 
-        .loading_pan {
+        .loading_pan{
             position: fixed;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
+
             background: rgba(0, 0, 0, 0.8);
+        }
+        #gameOverPan{
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+
+            background: rgba(0, 0, 0, 0.2);
         }
 
         .loading {
@@ -63,18 +73,57 @@
             background: #f00;
             border-radius: 50%;
         }
+        .bg{
+            background: #f00;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+
+        }
+        .start,#gameover{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 80vw;
+            height: 20vw;
+            line-height: 20vw;
+            margin: auto;
+            background-color: #fff;
+            text-align: center;
+        }
+        .hide{
+            display: none;
+        }
     </style>
 </head>
 <body>
 <canvas id="canvas"></canvas>
 <div id="change" class="change"></div>
-<div class="loading_pan">
-    <div class="loading">
-        正在很努力地载入中。。。
-        <span id="load_count"></span>
+
+<div id="bg" class="bg">
+    <div class="loading_pan">
+        <div class="loading">
+            正在很努力地载入中。。。
+            <span id="load_count"></span>
+        </div>
     </div>
+    <div id="start" class="start hide">开始</div>
 
 </div>
+
+<div id="gameOverPan" class="gameOverPan hide">
+    <div id="gameover">game Over</div>
+</div>
+
+
+
+
+
+
 </body>
 <script src="../c.js"></script>
 <script src="../g.js"></script>
@@ -125,8 +174,14 @@
             }
         }
 
-        document.getElementById("change").addEventListener("click", function () {
+
+        _("#change").click(function(){
             change();
+        });
+        _("#start").click(function(){
+            G.start();
+            _("#start").hide();
+            _("#bg").hide();
         });
 
         /* 游戏框架注入 */
@@ -146,7 +201,7 @@
             },
             loadingResEnd: function () {
                 _(".loading_pan").hide();
-
+                _("#start").show();
                 make_hdj();
 
 
@@ -177,6 +232,8 @@
                         //G.spirits.splice(index, 1);
                         G.over();
                         G.out("die...");
+
+                        _("#gameOverPan").show();
                     }
 
 

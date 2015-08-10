@@ -63,6 +63,13 @@ __.prototype={
             });
         }
         return this;
+    },
+    click:function(fn){
+        this._set(function(e){
+            e.addEventListener("click",function(){
+                fn();
+            });
+        });
     }
 }
 
