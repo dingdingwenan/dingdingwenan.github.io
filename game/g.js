@@ -50,6 +50,11 @@ var G = {
             G.gameStatus = "looping";
         }
     },
+    restart:function(){
+        G.spirits=[];
+        G.loadingResEnd();
+        G.gameStatus = "looping";
+    },
     zt: function () {
         switch (G.gameStatus) {
             case "looping":
@@ -59,6 +64,9 @@ var G = {
                 G.gameStatus = "looping";
                 break;
         }
+    },
+    over:function(){
+        G.gameStatus="over";
     },
     out: function (s) {
         if (G.debug) {

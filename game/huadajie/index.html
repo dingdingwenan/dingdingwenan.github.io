@@ -169,12 +169,13 @@
 
 
 
-                if (spirit.y>G.player.y+20 && spirit.y<G.player.y+ G.player.h-20){
+                if (spirit.y>G.player.y+30 && spirit.y<G.player.y+ G.player.h-30){
 
                     if(spirit.x=== G.player.x){
 
                     }else{
-                        G.spirits.splice(index, 1);
+                        //G.spirits.splice(index, 1);
+                        G.over();
                         G.out("die...");
                     }
 
