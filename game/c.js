@@ -66,8 +66,14 @@ __.prototype={
     },
     click:function(fn){
         this._set(function(e){
+            var eventFn="touchstart";
+            if(/iphone|nokia|sony|ericsson|mot|samsung|sgh|lg|philips|panasonic|alcatel|lenovo|cldc|midp|wap|android|iPod/i.test(navigator.userAgent.toLowerCase())){
 
-            e.addEventListener("touchstart",function(){
+            }else{
+                eventFn="click";
+            }
+
+            e.addEventListener(eventFn,function(){
                 event.preventDefault();
                 fn();
             });
