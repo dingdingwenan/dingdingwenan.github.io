@@ -163,16 +163,25 @@ body {
     vertical-align: middle;
     line-height: 25px;
 
+
 }
 
 .info_header_top {
+    z-index: 1;
     background-color: #fffeb0;
-    border: solid 10px #fffeb0;
-    /*border-bottom: solid 2px #d9d896;*/
-    margin: -10px 0 0 -10px;
-
 }
 
+.info_header_top:before {
+    background-color: #fffeb0;
+    display: block;
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    z-index: -1;
+}
 .info_header_top:after {
     background-color: #d9d896;
     border-left: solid 10px #d9d896;
