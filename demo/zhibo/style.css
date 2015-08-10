@@ -9,21 +9,27 @@ body {
     margin: auto;
 }
 
+
 .head_pic_area {
     position: relative;
     width: 100%;
     float: left;
-    height: 30vw;
+    height: auto;
     overflow: hidden;
-    background: rgba(0,0,0,0.1);
+    background-color: #f00;
 }
-
-.head_pic {
+.gei_height_for_head_pic{
     width: 100%;
-    border: none;
     float: left;
 }
-
+.head_pic {
+    position: absolute;
+    top: -50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+}
 .title {
     position: absolute;
     margin: auto;
@@ -39,7 +45,6 @@ body {
     text-align: center;
     width: 90%;
 }
-
 .person_count {
     position: absolute;
     bottom: 10px;

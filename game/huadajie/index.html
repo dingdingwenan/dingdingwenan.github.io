@@ -120,7 +120,7 @@
                 c.fillText(passedBugs, canvas.width-100+30,20);
 
                 if(G.spirits.length<2){
-                    var Math.
+                    var y=Math.floor(Math.random()*2);
                     var bug = {
                         x: 10,
                         y: canvas.height,
@@ -129,9 +129,10 @@
                         img: G.res.bug
                     }
                     G.spirits.push(bug);
+                    yy=Math.floor(Math.random()*60+1);
                     var bug = {
                         x: 160,
-                        y: canvas.height,
+                        y: canvas.height+yy,
                         w: G.res.bug.width,
                         h: G.res.bug.height,
                         img: G.res.bug
