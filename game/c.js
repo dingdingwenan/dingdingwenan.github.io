@@ -66,7 +66,9 @@ __.prototype={
     },
     click:function(fn){
         this._set(function(e){
-            e.addEventListener("click",function(){
+
+            e.addEventListener("touchstart",function(){
+                event.preventDefault();
                 fn();
             });
         });

@@ -95,6 +95,18 @@
             background-color: #fff;
             text-align: center;
         }
+        .restart{
+            text-align: center;
+            width: 100px;
+            background-color: #f00;
+            color: #fff;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+
+            margin: auto;
+        }
         .hide{
             display: none;
         }
@@ -116,7 +128,7 @@
 </div>
 
 <div id="gameOverPan" class="gameOverPan hide">
-    <div id="gameover">game Over</div>
+    <div id="gameover">game Over <div id="restart" class="restart">restart</div></div>
 </div>
 
 
@@ -182,6 +194,13 @@
             G.start();
             _("#start").hide();
             _("#bg").hide();
+        });
+
+        _("#restart").click(function(){
+            passedBugs=0;
+            _("#gameOverPan").hide();
+            G.restart();
+
         });
 
         /* 游戏框架注入 */

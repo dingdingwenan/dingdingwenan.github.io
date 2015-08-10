@@ -51,6 +51,7 @@ var G = {
         }
     },
     restart:function(){
+        G.gameTime=0;
         G.spirits=[];
         G.loadingResEnd();
         G.gameStatus = "looping";
