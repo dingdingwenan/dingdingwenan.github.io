@@ -152,6 +152,8 @@
 
                 G.player.x = 10;
                 G.player.y = 255;
+                G.player.w= G.res.bandao.width;
+                G.player.h= G.res.bandao.height;
             },
             loopingBefpre: function () {
                 c.drawImage(G.res.caodi, 0, 0);
@@ -159,14 +161,29 @@
                 c.drawImage(G.res.tizi, 160, 0);
             },
             playerLooping: function (player) {
-                G.out("player");
                 c.drawImage(G.res.bandao, G.player.x, G.player.y);
             },
-            loopingSpirit: function (spirit) {
+            loopingSpirit: function (spirit,index) {
                 //spirit.y -= Math.floor(Math.random() * 5);
                 spirit.y -= 2;
+
+
+
+                if (spirit.y>G.player.y+20 && spirit.y<G.player.y+ G.player.h-20){
+
+                    if(spirit.x=== G.player.x){
+
+                    }else{
+                        G.spirits.splice(index, 1);
+                        G.out("die...");
+                    }
+
+
+                }
+
+
                 if (spirit.y < -100) {
-                    G.spirits.splice(i, 1);
+                    G.spirits.splice(index, 1);
                     passedBugs += 1;
                 }
                 c.drawImage(spirit.img, spirit.x, spirit.y, spirit.w, spirit.h);

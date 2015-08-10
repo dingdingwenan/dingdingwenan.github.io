@@ -113,7 +113,7 @@ var G = {
                     G.playerLooping(G.player);//渲染角色（玩家控制）
                     for (i = 0; i < G.spirits.length; i++) {
                         var spirit = G.spirits[i];
-                        G.loopingSpirit(spirit);//渲染精灵
+                        G.loopingSpirit(spirit,i);//渲染精灵
                     }
                     G.loopingAfter();//渲染分数等
                     break;

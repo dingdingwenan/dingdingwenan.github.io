@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="70e35a04-e8d1-437e-bd1e-50fb0e47d15f" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/huadajie/img/work.sketch" afterPath="$PROJECT_DIR$/game/huadajie/img/work.sketch" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/g.js" afterPath="$PROJECT_DIR$/game/g.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/zhibo/index.html" afterPath="$PROJECT_DIR$/demo/zhibo/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game/huadajie/index.html" afterPath="$PROJECT_DIR$/game/huadajie/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/zhibo/style.css" afterPath="$PROJECT_DIR$/demo/zhibo/style.css" />
     </list>
     <ignored path="ding.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,8 +37,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game/huadajie/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.0899854">
-              <caret line="187" column="31" selection-start-line="187" selection-start-column="31" selection-end-line="187" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.51359516">
+              <caret line="179" column="0" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -71,7 +68,7 @@
         <entry file="file://$PROJECT_DIR$/game/g.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+              <caret line="115" column="56" selection-start-line="115" selection-start-column="56" selection-end-line="115" selection-end-column="56" />
               <folding />
             </state>
           </provider>
@@ -114,9 +111,9 @@
         <option value="$PROJECT_DIR$/404.html" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/game/c.js" />
-        <option value="$PROJECT_DIR$/game/g.js" />
         <option value="$PROJECT_DIR$/demo/zhibo/index.html" />
         <option value="$PROJECT_DIR$/demo/zhibo/style.css" />
+        <option value="$PROJECT_DIR$/game/g.js" />
         <option value="$PROJECT_DIR$/game/huadajie/index.html" />
       </list>
     </option>
@@ -507,14 +504,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game/g.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/zhibo/style.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-17.222221">
@@ -531,10 +520,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/game/g.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="115" column="56" selection-start-line="115" selection-start-column="56" selection-end-line="115" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/game/huadajie/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.0899854">
-          <caret line="187" column="31" selection-start-line="187" selection-start-column="31" selection-end-line="187" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.51359516">
+          <caret line="179" column="0" selection-start-line="179" selection-start-column="0" selection-end-line="179" selection-end-column="0" />
           <folding />
         </state>
       </provider>
