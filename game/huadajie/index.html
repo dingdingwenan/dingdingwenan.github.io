@@ -128,7 +128,9 @@
 </div>
 
 <div id="gameOverPan" class="gameOverPan hide">
-    <div id="gameover">game Over <div id="restart" class="restart">restart</div></div>
+    <div id="gameover">game Over
+        你一共让<b id="count"></b>个瓢虫安全地到达了彼岸
+        <div id="restart" class="restart">restart</div></div>
 </div>
 
 
@@ -255,7 +257,7 @@
                         //G.spirits.splice(index, 1);
                         G.over();
                         G.out("die...");
-
+                        _("#count").html(passedBugs);
                         _("#gameOverPan").show();
                     }
 
