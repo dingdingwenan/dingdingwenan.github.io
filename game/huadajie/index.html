@@ -143,14 +143,16 @@
     window.onload = function () {
         /* 自定义变量区 */
         var passedBugs = 0;
+        var speed=1;
         /* 自定义函数区 */
         function make_hdj() {
+            var juli=300;
             var y = Math.floor(Math.random() * 2);
             var yy = 0;
             if (y === 1) {
                 yy = 0;
             } else {
-                yy = 250;
+                yy = juli;
             }
             var bug = {
                 x: 10,
@@ -161,7 +163,7 @@
             }
             G.spirits.push(bug);
             if (yy === 0) {
-                yy = 250;
+                yy = juli;
             } else {
                 yy = 0;
             }
@@ -239,11 +241,13 @@
             },
             loopingSpirit: function (spirit,index) {
                 //spirit.y -= Math.floor(Math.random() * 5);
-                spirit.y -= 2;
+
+                speed=2+(passedBugs+1)*0.1;
+                spirit.y -= speed;
 
 
 
-                if (spirit.y>G.player.y+30 && spirit.y<G.player.y+ G.player.h-30){
+                if (spirit.y>G.player.y+60 && spirit.y<G.player.y+ G.player.h-60){
 
                     if(spirit.x=== G.player.x){
 
