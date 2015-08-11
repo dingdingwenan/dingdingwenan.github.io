@@ -29,7 +29,7 @@
 
         }
 
-        .loading_pan{
+        .loading_pan {
             position: fixed;
             top: 0;
             bottom: 0;
@@ -38,7 +38,8 @@
 
             background: rgba(0, 0, 0, 0.8);
         }
-        #gameOverPan{
+
+        #gameOverPan {
             position: fixed;
             top: 0;
             bottom: 0;
@@ -68,12 +69,14 @@
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 100px;
-            height: 100px;
-            background: #f00;
+            width: 80px;
+            height: 80px;
+            background-image: url(img/button.png);
+            background-size: 100%;
             border-radius: 50%;
         }
-        .bg{
+
+        .bg {
             background: #f00;
             position: fixed;
             top: 0;
@@ -82,7 +85,8 @@
             bottom: 0;
 
         }
-        .start,#gameover{
+
+        .start {
             position: absolute;
             top: 0;
             bottom: 0;
@@ -95,19 +99,57 @@
             background-color: #fff;
             text-align: center;
         }
-        .restart{
+
+        #gameover {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            width: 90vw;
+            height: 200px;
+            margin: auto;
+            background-color: #fff;
             text-align: center;
-            width: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        #gameover h2 {
+            height: 50px;
+            line-height: 50px;
+            width: 100%;
+        }
+
+        .msg {
+            width: 100%;
+            line-height: 60px;
+            font-size: 18px;
+        }
+
+        #count {
+            color: #f00;
+            font-weight: 900;
+            font-size: 22px;
+        }
+
+        .restart {
+            text-align: center;
+            /* width: 100px; */
             background-color: #f00;
             color: #fff;
             position: absolute;
             right: 0;
-            top: 0;
+            /* top: 0; */
+            left: 0;
             bottom: 0;
-
+            height: 50px;
             margin: auto;
+            line-height: 50px;
+            font-size: 25px;
         }
-        .hide{
+
+        .hide {
             display: none;
         }
     </style>
@@ -117,25 +159,23 @@
 <div id="change" class="change"></div>
 
 <div id="bg" class="bg">
-    <div class="loading_pan">
-        <div class="loading">
-            正在很努力地载入中。。。
-            <span id="load_count"></span>
-        </div>
-    </div>
-    <div id="start" class="start hide">开始</div>
 
+    <div class="loading">
+        正在很努力地载入中。。。
+        <span id="load_count"></span>
+    </div>
+
+    <div id="start" class="start hide">开始</div>
 </div>
 
 <div id="gameOverPan" class="gameOverPan hide">
-    <div id="gameover">game Over
-        你一共让<b id="count"></b>个瓢虫安全地到达了彼岸
-        <div id="restart" class="restart">restart</div></div>
+    <div id="gameover">
+        <h2>game Over</h2>
+
+        <div class="msg">你一共让<b id="count"></b>个瓢虫安全地到达了彼岸</div>
+        <div id="restart" class="restart">restart</div>
+    </div>
 </div>
-
-
-
-
 
 
 </body>
@@ -145,10 +185,10 @@
     window.onload = function () {
         /* 自定义变量区 */
         var passedBugs = 0;
-        var speed=1;
+        var speed = 1;
         /* 自定义函数区 */
         function make_hdj() {
-            var juli=300;
+            var juli = 300;
             var y = Math.floor(Math.random() * 2);
             var yy = 0;
             if (y === 1) {
@@ -191,17 +231,17 @@
         }
 
 
-        _("#change").click(function(){
+        _("#change").click(function () {
             change();
         });
-        _("#start").click(function(){
+        _("#start").click(function () {
             G.start();
             _("#start").hide();
             _("#bg").hide();
         });
 
-        _("#restart").click(function(){
-            passedBugs=0;
+        _("#restart").click(function () {
+            passedBugs = 0;
             _("#gameOverPan").hide();
             G.restart();
 
@@ -223,15 +263,15 @@
 
             },
             loadingResEnd: function () {
-                _(".loading_pan").hide();
+                _(".loading").hide();
                 _("#start").show();
                 make_hdj();
 
 
                 G.player.x = 10;
                 G.player.y = 255;
-                G.player.w= G.res.bandao.width;
-                G.player.h= G.res.bandao.height;
+                G.player.w = G.res.bandao.width;
+                G.player.h = G.res.bandao.height;
             },
             loopingBefpre: function () {
                 c.drawImage(G.res.caodi, 0, 0);
@@ -241,19 +281,18 @@
             playerLooping: function (player) {
                 c.drawImage(G.res.bandao, G.player.x, G.player.y);
             },
-            loopingSpirit: function (spirit,index) {
+            loopingSpirit: function (spirit, index) {
                 //spirit.y -= Math.floor(Math.random() * 5);
 
-                speed=2+(passedBugs+1)*0.1;
+                speed = 2 + (passedBugs + 1) * 0.1;
                 spirit.y -= speed;
 
 
+                if (spirit.y > G.player.y + 10 && spirit.y < G.player.y + G.player.h - 60) {
 
-                if (spirit.y>G.player.y+60 && spirit.y<G.player.y+ G.player.h-60){
+                    if (spirit.x === G.player.x) {
 
-                    if(spirit.x=== G.player.x){
-
-                    }else{
+                    } else {
                         //G.spirits.splice(index, 1);
                         G.over();
                         G.out("die...");
