@@ -76,7 +76,7 @@
         }
 
         .bg {
-            background: #f00;
+            background:rgba(0,0,0,1);
             position: fixed;
             top: 0;
             left: 0;
@@ -92,11 +92,12 @@
             left: 0;
             right: 0;
             width: 90vw;
-            height: 20vw;
-            line-height: 20vw;
+            height: 30vw;
             margin: auto;
-            background-color: #fff;
             text-align: center;
+        }
+        .start img{
+            height: 100%;
         }
 
         #gameover {
@@ -164,7 +165,9 @@
         <span id="load_count"></span>
     </div>
 
-    <div id="start" class="start hide">开始</div>
+    <div id="start" class="start hide">
+        <img src="img/start.png" alt=""/>
+    </div>
 </div>
 
 <div id="gameOverPan" class="gameOverPan hide">
