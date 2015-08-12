@@ -8,7 +8,7 @@ var G = {
     timer: 0,
     fps: 64,
     spirits: [],
-    speed: 3000,
+    speed: 10,
     timerFPS: 0,
     gameTime: 0,
     debug: true,//config
@@ -75,6 +75,7 @@ var G = {
         }
     },
     resetTimer: function () {
+        clearInterval(G.timerFPS);
         G.timerFPS = setInterval(function () {
             switch (G.gameStatus) {
                 case "loadingRes":
@@ -102,6 +103,7 @@ var G = {
                         G.loadingResEnd();//全部资源载入后执行
                         G.gameStatus = "ready";
                         G.speed = 1000 / G.fps;
+
                         G.resetTimer();
                     }
                     G.out(resLoadedCount);
