@@ -232,9 +232,23 @@
             }
         }
 
+        var bg_music=new Audio();
+        bg_music.src="audio/GameBackground.mp3";
+        bg_music.onload=function(){
+            this.play();
+        }
+        bg_music.play();
+        bg_music.pause();
+
+        var change_music=new Audio();
+        change_music.src="audio/change.mp3";
+        change_music.play();
+        change_music.pause();
+
 
         _("#change").click(function () {
             change();
+            change_music.play();
         });
         _("#start").click(function () {
             G.start();
@@ -245,6 +259,7 @@
         _("#restart").click(function () {
             passedBugs = 0;
             _("#gameOverPan").hide();
+            bg_music.play();
             G.restart();
 
         });
@@ -299,6 +314,7 @@
                         G.over();
                         G.out("die...");
                         _("#count").html(passedBugs);
+                        document.title="我成功地让"+passedBugs+"个花大姐到达了目的地";
                         _("#gameOverPan").show();
                     }
 
