@@ -19,6 +19,13 @@ var G = {
         w: 100,
         y: 100
     },
+    touch_x:0,
+    touch_y:0,
+    touchFn:{
+        start:function(){},
+        move:function(){},
+        end:function(){}
+    },//config
     loadingResFn: function () {
     },//config
     loadingResEnd: function () {
@@ -42,6 +49,7 @@ var G = {
         conf.loopingAfter != undefined ? G.loopingAfter = conf.loopingAfter : false;
         conf.loadingResFn != undefined ? G.loadingResFn = conf.loadingResFn : false;
         conf.loadingResEnd != undefined ? G.loadingResEnd = conf.loadingResEnd : false;
+        conf.touchFn != undefined ? G.touchFn = conf.touchFn : false;
         conf.debug != undefined ? G.debug = conf.debug : false;
         conf.debug != undefined ? G.debug = conf.debug : false;
     },
@@ -100,11 +108,11 @@ var G = {
                     }
                     if (resLoadedCount === G.loadingRes.length) {
                         G.out("资源全部载入完毕");
-                        G.loadingResEnd();//全部资源载入后执行
                         G.gameStatus = "ready";
                         G.speed = 1000 / G.fps;
-
                         G.resetTimer();
+                        G.loadingResEnd();//全部资源载入后执行
+
                     }
                     G.out(resLoadedCount);
                     break;
@@ -144,6 +152,27 @@ var G = {
         canvas.height = height;
         canvas.style.width = canvas.width + "px";
         canvas.style.height = canvas.height + "px";
+
+        canvas.addEventListener("touchstart",function(){
+            event.preventDefault();
+            var touch = event.touches[0]; //获取第一个触点
+            G.touch_x = Number(touch.pageX); //页面触点X坐标
+            G.touch_y = Number(touch.pageY); //页面触点Y坐标
+
+            G.touchFn.start(G.touch_x,G.touch_y);
+        });
+        canvas.addEventListener("touchmove",function(){
+            event.preventDefault();
+            var touch = event.touches[0]; //获取第一个触点
+            G.touch_x = Number(touch.pageX); //页面触点X坐标
+            G.touch_y = Number(touch.pageY); //页面触点Y坐标
+            G.touchFn.move(G.touch_x,G.touch_y);
+        });
+        canvas.addEventListener("touchend",function(){
+            event.preventDefault();
+            G.touchFn.end(G.touch_x,G.touch_y);
+        });
+
         c = canvas.getContext('2d');
         c.clearRect(0, 0, canvas.width, canvas.height);
         c.fillStyle = "#ff0000";
