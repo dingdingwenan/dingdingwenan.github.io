@@ -172,7 +172,7 @@
                 if (last_y < spirit.y) {
                     last_y = spirit.y;
                 }
-                spirit.y-=1+ G.timer*0.1;
+                spirit.y-=1+ G.gameTime*0.1;
                 c.drawImage(spirit.img, spirit.x, spirit.y, spirit.w, spirit.h);
 
                 if (spirit.y <= 10) {
