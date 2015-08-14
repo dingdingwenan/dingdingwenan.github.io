@@ -38,6 +38,7 @@
 <script>
     window.onload = function () {
         /* 自定义变量区 */
+        var last_y=0;
         /* 自定义函数区 */
         /* 游戏框架注入 */
 
@@ -80,6 +81,30 @@
                     img: G.res.bugl
                 }
                 G.spirits.push(bug);
+                var bug = {
+                    x: canvas.width/2-40,
+                    y: canvas.height+400,
+                    w: 80,
+                    h: 80,
+                    img: G.res.bugr
+                }
+                G.spirits.push(bug);
+                var bug = {
+                    x: canvas.width/2-40,
+                    y: canvas.height+500,
+                    w: 80,
+                    h: 80,
+                    img: G.res.bugy
+                }
+                G.spirits.push(bug);
+                var bug = {
+                    x: canvas.width/2-40,
+                    y: canvas.height+600,
+                    w: 80,
+                    h: 80,
+                    img: G.res.bugl
+                }
+                G.spirits.push(bug);
                 G.start();
             },
             loopingBefpre: function () {
@@ -89,40 +114,52 @@
 
             },
             loopingSpirit: function (spirit, index) {
+                if(index==0){
+                    last_y=0;
+                }
 
+                if(last_y<spirit.y){
+                    last_y=spirit.y;
+                }
                 spirit.y--;
-
                 c.drawImage(spirit.img, spirit.x, spirit.y, spirit.w, spirit.h);
 
-                if(spirit.y<-100){
+                if(spirit.y<=10){
                     G.spirits.splice(index, 1);
 
-                    var bug = {
-                        x: canvas.width/2-40,
-                        y: canvas.height+100,
-                        w: 80,
-                        h: 80,
-                        img: G.res.bugr
-                    }
-                    G.spirits.push(bug);
-                    var bug = {
-                        x: canvas.width/2-40,
-                        y: canvas.height+120,
-                        w: 80,
-                        h: 80,
-                        img: G.res.bugy
-                    }
-                    G.spirits.push(bug);
-                    var bug = {
-                        x: canvas.width/2-40,
-                        y: canvas.height+300,
-                        w: 80,
-                        h: 80,
-                        img: G.res.bugl
-                    }
-                    G.spirits.push(bug);
-
                 }
+
+                var x=Math.floor(Math.random()*3);
+                var color="";
+                switch (x){
+                    case 0:
+                        color="r";
+                        break;
+                    case 1:
+                        color="y";
+                        break;
+                    case 2:
+                        color="l";
+                        break;
+                }
+
+                if(G.spirits.length<6){
+
+                    if(last_y<canvas.height){
+                        last_y=canvas.height;
+                    }
+
+                    var bug = {
+                        x: canvas.width/2-40,
+                        y: last_y+100,
+                        w: 80,
+                        h: 80,
+                        img: G.res["bug"+color]
+                    }
+                    G.spirits.push(bug);
+                }
+                G.out(last_y);
+
             },
             loopingAfter: function () {
 
