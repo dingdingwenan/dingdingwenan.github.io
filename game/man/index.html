@@ -47,55 +47,85 @@
 
         G.config({
             loadingRes: [
-                {name: "bug", src: "../huadajie/img/bug.png", loaded: false},
+                {name: "bugr", src: "img/bugred.png", loaded: false},
+                {name: "bugy", src: "img/bugyellow.png", loaded: false},
+                {name: "bugl", src: "img/bugblue.png", loaded: false},
+                {name: "enter", src: "img/enter.png", loaded: false}
             ],
             //debug:false,
             loadingResFn: function (loadedCount, allCount) {
             },
             loadingResEnd: function () {
                 var bug = {
-                    x: 10,
-                    y: 10,
-                    w: 30,
-                    h: 30,
-                    img: G.res.bug
-                }
-                G.spirits.push(bug);
-                var bug = {
-                    x: 160,
-                    y: 160,
-                    w: G.res.bug.width,
-                    h: G.res.bug.height,
-                    img: G.res.bug
-                }
-                G.spirits.push(bug);
-                var bug = {
-                    x: 200,
-                    y: 300,
-                    w: 50,
-                    h: 50,
-                    img: G.res.bug
-                }
-                G.spirits.push(bug);
-                var bug = {
-                    x: 100,
-                    y: 300,
+                    x: canvas.width/2-40,
+                    y: canvas.height+100,
                     w: 80,
                     h: 80,
-                    img: G.res.bug
+                    img: G.res.bugr
+                }
+                G.spirits.push(bug);
+                var bug = {
+                    x: canvas.width/2-40,
+                    y: canvas.height+200,
+                    w: 80,
+                    h: 80,
+                    img: G.res.bugy
+                }
+                G.spirits.push(bug);
+                var bug = {
+                    x: canvas.width/2-40,
+                    y: canvas.height+300,
+                    w: 80,
+                    h: 80,
+                    img: G.res.bugl
                 }
                 G.spirits.push(bug);
                 G.start();
             },
             loopingBefpre: function () {
+                c.drawImage(G.res.enter, 0, 0, canvas.width,60);
             },
             playerLooping: function (player) {
 
             },
             loopingSpirit: function (spirit, index) {
+
+                spirit.y--;
+
                 c.drawImage(spirit.img, spirit.x, spirit.y, spirit.w, spirit.h);
+
+                if(spirit.y<-100){
+                    G.spirits.splice(index, 1);
+
+                    var bug = {
+                        x: canvas.width/2-40,
+                        y: canvas.height+100,
+                        w: 80,
+                        h: 80,
+                        img: G.res.bugr
+                    }
+                    G.spirits.push(bug);
+                    var bug = {
+                        x: canvas.width/2-40,
+                        y: canvas.height+120,
+                        w: 80,
+                        h: 80,
+                        img: G.res.bugy
+                    }
+                    G.spirits.push(bug);
+                    var bug = {
+                        x: canvas.width/2-40,
+                        y: canvas.height+300,
+                        w: 80,
+                        h: 80,
+                        img: G.res.bugl
+                    }
+                    G.spirits.push(bug);
+
+                }
             },
             loopingAfter: function () {
+
             },
             touchFn:{
                 start:function(x,y){
