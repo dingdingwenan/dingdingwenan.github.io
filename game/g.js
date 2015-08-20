@@ -124,16 +124,56 @@ var G = {
                     G.timer += 1000 / G.fps;
                     if (G.timer > 1000) {
                         G.gameTime += 1;
-                        G.out(G.gameTime);
+
+                        //G.out(G.gameTime);
                         G.timer = 0;
                     }
                     c.clearRect(0, 0, canvas.width, canvas.height);
                     G.loopingBefpre();//用于渲染背景
                     G.playerLooping(G.player);//渲染角色（玩家控制）
+
+                    //
+                    var cross_arr=[];
+                    var tmp_spirit={
+                        x:0,
+                        y:0,
+                        w:0,
+                        h:0
+                    };
+
+                    //
+
                     for (i = 0; i < G.spirits.length; i++) {
                         var spirit = G.spirits[i];
-                        G.loopingSpirit(spirit,i);//渲染精灵
+
+                        var cross_spirit=null;
+                        //
+                        var cross_index=0;
+                        for (ii = 0; ii < G.spirits.length; ii++) {
+                            var spirit2 = G.spirits[ii];
+
+                            if(spirit2!=spirit){
+                                if(spirit2.x>spirit.x){
+                                    if(spirit2.x<spirit.x+spirit.w){
+                                        if(spirit2.y>spirit.y){
+                                            if(spirit2.y<spirit.y+spirit.h){
+                                                cross_spirit=spirit2;
+                                                cross_index=ii;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        }
+                        //
+                        G.loopingSpirit(spirit,i,cross_spirit,cross_index);//渲染精灵
                     }
+
+
+
+
                     G.loopingAfter();//渲染分数等
                     break;
                 case "stop":

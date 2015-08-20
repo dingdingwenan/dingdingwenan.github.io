@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=2.0,maximum-scale=1,user-scalable=no">
-    <title>花大姐</title>
+    <title>配对儿</title>
     <style>
         * {
             margin: 0;
@@ -80,13 +80,20 @@
 <script>
     window.onload = function () {
         /* 自定义变量区 */
-        var last_y = 0;
+        var love=0;
+        var lala=0;
+        var gay=0;
+        var top_girl=0;
+        var last_boy=0;
         /* 自定义函数区 */
         function gameOver(){
             _(".bg").show();
             G.over();
         }
         _("#replay").click(function(){
+            var love=0;
+            var lala=0;
+            var gay=0;
             G.restart();
             _(".bg").hide();
         });
@@ -98,142 +105,84 @@
 
         G.config({
             loadingRes: [
-                {name: "bugr", src: "img/bugred.png", loaded: false},
-                {name: "bugy", src: "img/bugyellow.png", loaded: false},
-                {name: "bugl", src: "img/bugblue.png", loaded: false},
-                {name: "enter", src: "img/enter.png", loaded: false}
+                {name: "boy", src: "img/boy.png", loaded: false},
+                {name: "girl", src: "img/girl.png", loaded: false},
+                {name: "lala", src: "img/lala.png", loaded: false},
+                {name: "gay", src: "img/gay.png", loaded: false},
+                {name: "love", src: "img/love.png", loaded: false}
             ],
             //debug:false,
             loadingResFn: function (loadedCount, allCount) {
             },
             loadingResEnd: function () {
-                var bug = {
-                    x: canvas.width / 2 - 40,
-                    y: canvas.height + 100,
-                    w: 80,
-                    h: 80,
-                    img: G.res.bugr
-                }
-                G.spirits.push(bug);
-                var bug = {
-                    x: canvas.width / 2 - 40,
-                    y: canvas.height + 200,
-                    w: 80,
-                    h: 80,
-                    img: G.res.bugy
-                }
-                G.spirits.push(bug);
-                var bug = {
-                    x: canvas.width / 2 - 40,
-                    y: canvas.height + 300,
-                    w: 80,
-                    h: 80,
-                    img: G.res.bugl
-                }
-                G.spirits.push(bug);
-                var bug = {
-                    x: canvas.width / 2 - 40,
-                    y: canvas.height + 400,
-                    w: 80,
-                    h: 80,
-                    img: G.res.bugr
-                }
-                G.spirits.push(bug);
-                var bug = {
-                    x: canvas.width / 2 - 40,
-                    y: canvas.height + 500,
-                    w: 80,
-                    h: 80,
-                    img: G.res.bugy
-                }
-                G.spirits.push(bug);
-                var bug = {
-                    x: canvas.width / 2 - 40,
-                    y: canvas.height + 600,
-                    w: 80,
-                    h: 80,
-                    img: G.res.bugl
-                }
-                G.spirits.push(bug);
+
                 G.start();
             },
             loopingBefpre: function () {
-                c.drawImage(G.res.enter, 0, 0, canvas.width, 60);
-                last_y = canvas.height;
+                //c.drawImage(G.res.enter, 0, 0, canvas.width, 60);
+
+
+                last_boy=canvas.height;
+                top_girl=0;
             },
             playerLooping: function (player) {
 
             },
             loopingSpirit: function (spirit, index) {
 
-
-                if (last_y < spirit.y) {
-                    last_y = spirit.y;
+                switch (spirit.type) {
+                    case "boy":
+                        spirit.y-=1;
+                        if (spirit.y <= -100) {
+                            G.spirits.splice(index, 1);
+                        }
+                        break;
+                    case "girl":
+                        spirit.y+=1;
+                        if (spirit.y>=canvas.height+100) {
+                            G.spirits.splice(index, 1);
+                        }
+                        break;
                 }
-                spirit.y-=1+ G.gameTime*0.1;
                 c.drawImage(spirit.img, spirit.x, spirit.y, spirit.w, spirit.h);
 
-                if (spirit.y <= 10) {
 
-                    if (spirit.img === G.res.bugr) {
-
-                        if(spirit.x>-100 && spirit.x<canvas.width/3){
-                            G.out("red yes");
-                        }else{
-                            gameOver();
-                        }
-
-                    }else if (spirit.img === G.res.bugy) {
-
-                        if(spirit.x>canvas.width/3 && spirit.x<canvas.width/3*2){
-                            G.out("yellow yes");
-                        }else{
-                            gameOver();
-                        }
-
-                    }else if (spirit.img === G.res.bugl) {
-                        if(spirit.x>canvas.width/3*2 && spirit.x<canvas.width*2){
-                            G.out("blue yes");
-                        }else{
-                            gameOver();
-                        }
-                    }
-
-                    G.spirits.splice(index, 1);
-                }
 
                 var x = Math.floor(Math.random() * 3);
-                var color = "";
-                switch (x) {
-                    case 0:
-                        color = "r";
-                        break;
-                    case 1:
-                        color = "y";
-                        break;
-                    case 2:
-                        color = "l";
-                        break;
+
+                if(last_boy<spirit.y){
+                    last_boy=spirit.y;
                 }
 
 
+                if(top_girl>spirit.y){
+                    top_girl=spirit.y;
+                }
                 //G.out(last_y);
 
             },
             loopingAfter: function () {
-                if (G.spirits.length < 6) {
 
-                    if (last_y < canvas.height) {
-                        last_y = canvas.height;
-                    }
-                    var bug = {
-                        x: canvas.width / 2 - 40,
-                        y: last_y + 100,
+                if (G.spirits.length <20) {
+                    var boy = {
+                        type:"boy",
+                        x: canvas.width / 2 - 40-60,
+                        y: last_boy+100,
                         w: 80,
                         h: 80,
-                        img: G.res["bug" + color]
+                        img: G.res["boy"]
                     }
-                    G.spirits.push(bug);
+                    var girl = {
+                        type:"girl",
+                        x: canvas.width / 2 -40+60,
+                        y: top_girl-100,
+                        w: 80,
+                        h: 80,
+                        img: G.res["girl"]
+                    }
+                    G.spirits.push(girl);
+                    G.spirits.push(boy);
+
                 }
             },
             touchFn: {
