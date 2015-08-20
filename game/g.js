@@ -153,6 +153,7 @@ var G = {
                             var spirit2 = G.spirits[ii];
 
                             if(spirit2!=spirit){
+                                /*
                                 if(spirit2.x>spirit.x){
                                     if(spirit2.x<spirit.x+spirit.w){
                                         if(spirit2.y>spirit.y){
@@ -162,6 +163,15 @@ var G = {
                                                 break;
                                             }
                                         }
+                                    }
+                                }*/
+                                if(Math.abs((spirit2.x+spirit2.w/2)-(spirit.x+spirit.w/2))<(spirit2.w/2+spirit.w/2)){
+                                    if(Math.abs((spirit2.y+spirit2.h/2)-(spirit.y+spirit.h/2))<(spirit2.h/2+spirit.h/2)){
+
+                                                cross_spirit=spirit2;
+                                                cross_index=ii;
+                                                break;
+                                           
                                     }
                                 }
                             }
