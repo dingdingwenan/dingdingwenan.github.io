@@ -27,16 +27,18 @@
         canvas {
             background: #ccc;
         }
-        .bg{
+
+        .bg {
             position: fixed;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             display: none;
         }
-        .gameOver{
+
+        .gameOver {
             position: absolute;
             top: 0;
             bottom: 0;
@@ -48,21 +50,28 @@
             margin: auto;
             background: #fff;
         }
-        h2{
+
+        h2 {
             text-align: center;
             width: 100%;
             height: 80px;
             line-height: 80px;
             display: block;
         }
-        button{text-align: center;
+
+        button {
+            text-align: center;
             width: 60%;
             height: 40px;
             margin: 20px auto;
-            display:block;
+            display: block;
             border: none;
             background: #f00;
             font-size: 22px;
+        }
+        #msg {
+            text-align: center;
+            width: 100%;
         }
     </style>
 </head>
@@ -71,6 +80,7 @@
 <div class="bg">
     <div class="gameOver">
         <h2>Game Over</h2>
+        <p id="msg"></p>
         <button id="replay">rePlay</button>
     </div>
 </div>
@@ -80,21 +90,24 @@
 <script>
     window.onload = function () {
         /* 自定义变量区 */
-        var love=0;
-        var lala=0;
-        var gay=0;
-        var last_girl=0;
+        var lover = 0;
+        var lala = 0;
+        var gay = 0;
+        var last_girl = 0;
 
-        var last_boy=0;
+        var last_boy = 0;
         /* 自定义函数区 */
-        function gameOver(){
+        function gameOver() {
             _(".bg").show();
             G.over();
+            document.title="我一共配了"+lover+"对儿情侣";
+            _("#msg").html("我一共配了"+lover+"对儿情侣");
         }
-        _("#replay").click(function(){
-            var love=0;
-            var lala=0;
-            var gay=0;
+
+        _("#replay").click(function () {
+            var love = 0;
+            var lala = 0;
+            var gay = 0;
             G.restart();
             _(".bg").hide();
         });
@@ -122,52 +135,56 @@
             loopingBefpre: function () {
                 //c.drawImage(G.res.enter, 0, 0, canvas.width, 60);
 
-                last_girl=canvas.height;
-                last_boy=canvas.height;
+                last_girl = canvas.height;
+                last_boy = canvas.height;
 
             },
             playerLooping: function (player) {
 
             },
-            loopingSpirit: function (spirit, index,cross_spirit,cross_index) {
+            loopingSpirit: function (spirit, index, cross_spirit, cross_index) {
 
 
-                spirit.y-=1;
+                spirit.y -= 1;
 
-                if(spirit.y<=-100){
+                if (spirit.y <= -100) {
                     G.spirits.splice(index, 1);
                 }
 
 
-                if(cross_spirit!=null){
+                if (cross_spirit != null) {
 
-                    switch (cross_spirit.type){
+                    switch (cross_spirit.type) {
                         case "girl":
 
-                                switch (spirit.type){
-                                    case "boy":
-                                        spirit.type="lover";
-                                        spirit.img= G.res["lover"];
-                                        G.spirits.splice(cross_index, 1);
-                                        break;
-                                    case "girl":
-                                        spirit.type="lala";
-                                        spirit.img= G.res["lala"];
-                                        G.spirits.splice(cross_index, 1);
-                                        break;
-                                }
-
-                            break;
-                        case "boy":
-                            switch (spirit.type){
+                            switch (spirit.type) {
                                 case "boy":
-                                    spirit.type="gay";
-                                    spirit.img= G.res["gay"];
+                                    spirit.type = "lover";
+                                    spirit.img = G.res["lover"];
+                                    lover += 1;
                                     G.spirits.splice(cross_index, 1);
                                     break;
                                 case "girl":
-                                    spirit.type="lala";
-                                    spirit.img= G.res["lover"];
+                                    spirit.type = "lala";
+                                    spirit.img = G.res["lala"];
+                                    G.spirits.splice(cross_index, 1);
+                                    gameOver();
+                                    break;
+                            }
+
+                            break;
+                        case "boy":
+                            switch (spirit.type) {
+                                case "boy":
+                                    spirit.type = "gay";
+                                    spirit.img = G.res["gay"];
+                                    G.spirits.splice(cross_index, 1);
+                                    gameOver();
+                                    break;
+                                case "girl":
+                                    spirit.type = "lover";
+                                    spirit.img = G.res["lover"];
+                                    lover += 1;
                                     G.spirits.splice(cross_index, 1);
                                     break;
                             }
@@ -176,18 +193,15 @@
                 }
 
 
-
-
-                c.drawImage(spirit.img, spirit.x, spirit.y, spirit.img.width*0.5, spirit.img.height*0.5);
-
+                c.drawImage(spirit.img, spirit.x, spirit.y, spirit.img.width * 0.5, spirit.img.height * 0.5);
 
 
                 var x = Math.floor(Math.random() * 3);
-                if(last_girl<spirit.y){
-                    last_girl=spirit.y;
+                if (last_girl < spirit.y) {
+                    last_girl = spirit.y;
                 }
-                if(last_boy<spirit.y){
-                    last_boy=spirit.y;
+                if (last_boy < spirit.y) {
+                    last_boy = spirit.y;
                 }
 
 
@@ -196,28 +210,149 @@
             },
             loopingAfter: function () {
 
-                if (G.spirits.length <20) {
-                    var girl = {
-                        type:"girl",
-                        x: canvas.width / 2 -40+60,
-                        y: last_girl+100,
-                        w: 80,
-                        h: 80,
-                        img: G.res["girl"]
-                    }
-                    var boy = {
-                        type:"boy",
-                        x: canvas.width / 2 - 40-60,
-                        y: last_boy+100,
-                        w: 80,
-                        h: 80,
-                        img: G.res["boy"]
+
+                if (G.spirits.length < 20) {
+
+
+                    var r = Math.floor(Math.random() * 5);
+                    switch (r) {
+                        case 0:
+                            var girl = {
+                                type: "girl",
+                                x: canvas.width / 2 - 40 - 60,
+                                y: last_girl + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["girl"]
+                            }
+                            G.spirits.push(girl);
+                            var boy = {
+                                type: "boy",
+                                x: canvas.width / 2 - 40 + 60,
+                                y: last_boy + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["boy"]
+                            }
+
+                            G.spirits.push(boy);
+                            break;
+                        case 1:
+                            var girl = {
+
+                                type: "girl",
+                                x: canvas.width / 2 - 40 + 60,
+                                y: last_girl + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["girl"]
+                            }
+                            G.spirits.push(girl);
+                            var boy = {
+                                type: "boy",
+                                x: canvas.width / 2 - 40 - 60,
+                                y: last_boy + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["boy"]
+                            }
+                            G.spirits.push(boy);
+
+                            break;
+                        case 2:
+                            var boy = {
+
+                                type: "boy",
+                                x: canvas.width / 2 - 40 + 60,
+                                y: last_boy + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["boy"]
+                            }
+                            G.spirits.push(boy);
+                            var boy = {
+                                type: "boy",
+                                x: canvas.width / 2 - 40 - 60,
+                                y: last_boy + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["boy"]
+                            }
+
+                            G.spirits.push(boy);
+                            break;
+                        case 3:
+                            var girl = {
+                                type: "girl",
+                                x: canvas.width / 2 - 40 - 60,
+                                y: last_girl + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["girl"]
+                            }
+                            G.spirits.push(girl);
+                            var girl = {
+                                type: "girl",
+                                x: canvas.width / 2 - 40 + 60,
+                                y: last_girl + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["girl"]
+                            }
+                            G.spirits.push(girl);
+                            break;
+                        case 4:
+                            var girl = {
+                                type: "girl",
+                                x: canvas.width / 2 - 40 - 60,
+                                y: last_girl + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["girl"]
+                            }
+                            G.spirits.push(girl);
+                            var girl = {
+                                type: "girl",
+                                x: canvas.width / 2 - 40 + 60,
+                                y: last_girl + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["girl"]
+                            }
+                            G.spirits.push(girl);
+                            break;
+                        case 5:
+                            var boy = {
+
+                                type: "boy",
+                                x: canvas.width / 2 - 40 + 60,
+                                y: last_boy + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["boy"]
+                            }
+                            G.spirits.push(boy);
+                            var boy = {
+                                type: "boy",
+                                x: canvas.width / 2 - 40 - 60,
+                                y: last_boy + 100,
+                                w: 80,
+                                h: 80,
+                                img: G.res["boy"]
+                            }
+                            G.spirits.push(boy);
+                            break;
                     }
 
-                    G.spirits.push(girl);
-                    G.spirits.push(boy);
 
                 }
+
+                c.drawImage(G.res.lover, 10, 10, G.res.lover.width / 4, G.res.lover.height / 4);
+                c.font = "20px Courier New";
+                c.textAlign = 'left';
+                c.textBaseline = 'top';
+                c.fillStyle = "#ffffff";
+                c.fillText("情侣" + lover + "对儿", G.res.lover.width / 4 + 20, 15);
             },
             touchFn: {
                 start: function (x, y) {

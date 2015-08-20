@@ -171,7 +171,7 @@ var G = {
                                                 cross_spirit=spirit2;
                                                 cross_index=ii;
                                                 break;
-                                           
+
                                     }
                                 }
                             }
