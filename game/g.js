@@ -19,12 +19,15 @@ var G = {
         w: 100,
         y: 100
     },
-    touch_x:0,
-    touch_y:0,
-    touchFn:{
-        start:function(){},
-        move:function(){},
-        end:function(){}
+    touch_x: 0,
+    touch_y: 0,
+    touchFn: {
+        start: function () {
+        },
+        move: function () {
+        },
+        end: function () {
+        }
     },//config
     loadingResFn: function () {
     },//config
@@ -58,9 +61,9 @@ var G = {
             G.gameStatus = "looping";
         }
     },
-    restart:function(){
-        G.gameTime=0;
-        G.spirits=[];
+    restart: function () {
+        G.gameTime = 0;
+        G.spirits = [];
         G.loadingResEnd();
         G.gameStatus = "looping";
     },
@@ -74,8 +77,8 @@ var G = {
                 break;
         }
     },
-    over:function(){
-        G.gameStatus="over";
+    over: function () {
+        G.gameStatus = "over";
     },
     out: function (s) {
         if (G.debug) {
@@ -133,12 +136,12 @@ var G = {
                     G.playerLooping(G.player);//渲染角色（玩家控制）
 
                     //
-                    var cross_arr=[];
-                    var tmp_spirit={
-                        x:0,
-                        y:0,
-                        w:0,
-                        h:0
+                    var cross_arr = [];
+                    var tmp_spirit = {
+                        x: 0,
+                        y: 0,
+                        w: 0,
+                        h: 0
                     };
 
                     //
@@ -146,31 +149,31 @@ var G = {
                     for (i = 0; i < G.spirits.length; i++) {
                         var spirit = G.spirits[i];
 
-                        var cross_spirit=null;
+                        var cross_spirit = null;
                         //
-                        var cross_index=0;
+                        var cross_index = 0;
                         for (ii = 0; ii < G.spirits.length; ii++) {
                             var spirit2 = G.spirits[ii];
 
-                            if(spirit2!=spirit){
+                            if (spirit2 != spirit) {
                                 /*
-                                if(spirit2.x>spirit.x){
-                                    if(spirit2.x<spirit.x+spirit.w){
-                                        if(spirit2.y>spirit.y){
-                                            if(spirit2.y<spirit.y+spirit.h){
-                                                cross_spirit=spirit2;
-                                                cross_index=ii;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }*/
-                                if(Math.abs((spirit2.x+spirit2.w/2)-(spirit.x+spirit.w/2))<(spirit2.w/2+spirit.w/2)){
-                                    if(Math.abs((spirit2.y+spirit2.h/2)-(spirit.y+spirit.h/2))<(spirit2.h/2+spirit.h/2)){
+                                 if(spirit2.x>spirit.x){
+                                 if(spirit2.x<spirit.x+spirit.w){
+                                 if(spirit2.y>spirit.y){
+                                 if(spirit2.y<spirit.y+spirit.h){
+                                 cross_spirit=spirit2;
+                                 cross_index=ii;
+                                 break;
+                                 }
+                                 }
+                                 }
+                                 }*/
+                                if (Math.abs((spirit2.x + spirit2.w / 2) - (spirit.x + spirit.w / 2)) < (spirit2.w / 2 + spirit.w / 2)) {
+                                    if (Math.abs((spirit2.y + spirit2.h / 2) - (spirit.y + spirit.h / 2)) < (spirit2.h / 2 + spirit.h / 2)) {
 
-                                                cross_spirit=spirit2;
-                                                cross_index=ii;
-                                                break;
+                                        cross_spirit = spirit2;
+                                        cross_index = ii;
+                                        break;
 
                                     }
                                 }
@@ -178,10 +181,8 @@ var G = {
 
                         }
                         //
-                        G.loopingSpirit(spirit,i,cross_spirit,cross_index);//渲染精灵
+                        G.loopingSpirit(spirit, i, cross_spirit, cross_index);//渲染精灵
                     }
-
-
 
 
                     G.loopingAfter();//渲染分数等
@@ -203,24 +204,24 @@ var G = {
         canvas.style.width = canvas.width + "px";
         canvas.style.height = canvas.height + "px";
 
-        canvas.addEventListener("touchstart",function(){
+        canvas.addEventListener("touchstart", function () {
             event.preventDefault();
             var touch = event.touches[0]; //获取第一个触点
             G.touch_x = Number(touch.pageX); //页面触点X坐标
             G.touch_y = Number(touch.pageY); //页面触点Y坐标
 
-            G.touchFn.start(G.touch_x,G.touch_y);
+            G.touchFn.start(G.touch_x, G.touch_y);
         });
-        canvas.addEventListener("touchmove",function(){
+        canvas.addEventListener("touchmove", function () {
             event.preventDefault();
             var touch = event.touches[0]; //获取第一个触点
             G.touch_x = Number(touch.pageX); //页面触点X坐标
             G.touch_y = Number(touch.pageY); //页面触点Y坐标
-            G.touchFn.move(G.touch_x,G.touch_y);
+            G.touchFn.move(G.touch_x, G.touch_y);
         });
-        canvas.addEventListener("touchend",function(){
+        canvas.addEventListener("touchend", function () {
             event.preventDefault();
-            G.touchFn.end(G.touch_x,G.touch_y);
+            G.touchFn.end(G.touch_x, G.touch_y);
         });
 
         c = canvas.getContext('2d');

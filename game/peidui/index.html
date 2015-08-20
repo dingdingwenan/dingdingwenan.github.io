@@ -69,6 +69,7 @@
             background: #f00;
             font-size: 22px;
         }
+
         #msg {
             text-align: center;
             width: 100%;
@@ -80,6 +81,7 @@
 <div class="bg">
     <div class="gameOver">
         <h2>Game Over</h2>
+
         <p id="msg"></p>
         <button id="replay">rePlay</button>
     </div>
@@ -100,8 +102,8 @@
         function gameOver() {
             _(".bg").show();
             G.over();
-            document.title="我一共配了"+lover+"对儿情侣";
-            _("#msg").html("我一共配了"+lover+"对儿情侣");
+            document.title = "我一共配了" + lover + "对儿情侣";
+            _("#msg").html("我一共配了" + lover + "对儿情侣");
         }
 
         _("#replay").click(function () {
